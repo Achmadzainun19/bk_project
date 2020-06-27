@@ -1,0 +1,17 @@
+CREATE TABLE `konseling_siswa` (
+  `id_konseling` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `keterangan` varchar(45) NOT NULL,
+  `solusi` varchar(45) NOT NULL,
+  `data_siswa_id_siswa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `konseling_siswa`
+--
+
+INSERT INTO `konseling_siswa` (`id_konseling`, `tanggal`, `keterangan`, `solusi`, `data_siswa_id_siswa`) VALUES
+(1, '2020-06-25 00:00:00', 'percobaan 1', 'percobaan 1', 1),
+(4, '2020-06-25 22:08:26', 'dfdgf', 'hgfhgj', 1),
+(5, '2020-06-25 22:08:37', 'sfs', 'tretret', 1),
+(6, '0000-00-00 00:00:00', 'rttry', 'rtytry', 1);
