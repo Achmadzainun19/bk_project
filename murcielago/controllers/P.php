@@ -474,6 +474,8 @@ class P extends CI_Controller {
 
 		$poin_all=0;
 
+		$array_pelanggaran=array();
+
 		foreach($nm as $k => $v){
 
 			$cek_poin = $this->m_data->where('pelanggaran',array('id_pelanggaran' => $_POST['pelanggaran'][$k]))->row();
@@ -496,17 +498,42 @@ class P extends CI_Controller {
 
 			$this->db->insert('pelanggaran_siswa',$data);
 
+			$array_pelanggaran[]=$cek_poin->nama_pelanggaran;
+
 		}
 
-		$this->session->set_flashdata('alert',' <div class="alert alert-success alert-dismissible">
+		$sentence = '';
+		foreach($array_pelanggaran as $k => $v) {
+		   if (count($array_pelanggaran) == 1) {
+			  $sentence = $v;
+			  break;
+		   }
+		   else if ($k == count($array_pelanggaran)-1) {
+			  $sentence .= 'dan ' . $v;
+		   }
+		   else {
+			  $sentence .= $v . ', ';
+		   }
+		}
+		
+		$sentence;
 
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	$data_siswa=$this->m_data->siswa_kelas($this->input->post('id_siswa'))->result();
+	foreach($data_siswa as $ds){
+		$nama_siswa=$ds->nama_siswa;
+		$kelas=$ds->nama_kelas;
+	}
 
-		<strong>Berhasil menambahkan pelanggaran siswa!</strong>
 
-	</div>');
+	// 	$this->session->set_flashdata('alert',' <div class="alert alert-success alert-dismissible">
 
-		redirect('p/tambah_pelanggaran');
+	// 	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+	// 	<strong>Berhasil menambahkan pelanggaran siswa!</strong>
+
+	// </div>');
+	echo "https://wa.me/628113711998?text=assalamualaikum pesan ini adalah pesan dari sistem point pelanggaran siswa smpn 4 banyuwangi memberitahukan bahwa ananda $nama_siswa kelas $kelas  telah melakukan pelanggaran sekolah $sentence dengan jumlah poin $poin_all segera tanggapi pesan berikut untuk cek kebenaran";
+		// redirect('p/tambah_pelanggaran');
 
 	}
 

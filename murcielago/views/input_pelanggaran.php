@@ -40,7 +40,7 @@
 
           <p style="font-size:17px;font-weight:500">Kelas : <?php echo $siswa->nama_kelas ?></p>
 
-            <form action="<?php echo base_url('p/pelanggaran_sys') ?>" method="post">
+            <form id="form"  >
 
               <input type="hidden" name="id_siswa" value="<?php echo $siswa->id_siswa ?>">
 
@@ -50,7 +50,7 @@
 
                 <div class="container-fluid">
 
-                  <button type="submit" name="button" class="btn btn-danger btn-flat pull-right">Tambah Pelanggaran</button>
+                  <button onclick="kirimdata()" type="button" name="button" class="btn btn-danger btn-flat pull-right">Tambah Pelanggaran</button>
 
                 </div>
 
@@ -159,6 +159,21 @@
   $(".check").prop('checked', $(this).prop('checked'));
 
 });
+
+function kirimdata(){
+  var data = $('#form').serialize();
+  $.ajax({
+      type	: 'POST',
+      url	: "<?php echo base_url('p/pelanggaran_sys') ?>",
+      data: data,
+      cache	: false,
+      success	: function(response){
+        window.open(response);
+        location.href = "<?php echo base_url('p/tambah_pelanggaran');?>";
+          // $('#tampil').load("tampil.php");
+      }
+  });
+}
 
   </script>
 
