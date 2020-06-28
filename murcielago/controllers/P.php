@@ -535,7 +535,7 @@ class P extends CI_Controller {
 	echo "https://wa.me/628113711998?text=assalamualaikum pesan ini adalah pesan dari sistem point pelanggaran siswa smpn 4 banyuwangi memberitahukan bahwa ananda $nama_siswa kelas $kelas  telah melakukan pelanggaran sekolah $sentence dengan jumlah poin $poin_all segera tanggapi pesan berikut untuk cek kebenaran";
 		// redirect('p/tambah_pelanggaran');
 
-	}
+	} 
 
 
 
