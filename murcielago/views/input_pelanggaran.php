@@ -158,7 +158,7 @@
 
   $(".check").prop('checked', $(this).prop('checked'));
 
-});
+}); 
 
 function kirimdata(){
   var data = $('#form').serialize();
