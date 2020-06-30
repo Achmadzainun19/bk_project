@@ -1,0 +1,17 @@
+
+CREATE TABLE `bentuk_sanksi` (
+  `id_bentuk_sanksi` int(11) NOT NULL,
+  `bentuk_pelanggaran` varchar(45) NOT NULL,
+  `point_terendah` int(11) NOT NULL,
+  `point_tertinggi` int(11) NOT NULL,
+  `sanksi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bentuk_sanksi`
+--
+
+INSERT INTO `bentuk_sanksi` (`id_bentuk_sanksi`, `bentuk_pelanggaran`, `point_terendah`, `point_tertinggi`, `sanksi`) VALUES
+(1, 'Pelanggaran Ringan', 1, 11, 'Peringatan lisan dan surat peringatan'),
+(3, 'Pelanggaran Sedang', 11, 30, 'Surat panggilan orang tua'),
+(4, 'Pelanggaran Berat', 31, 1000, '30 – 50 poin : dikembalikan kepada orang tua pada waktu tertentu ( skorsing ) 1 hari\r\n51 – 89 poin : sanksi berupa dikembalikan kepada orang tua dalam waktu tertentu ( skorsing ) 3 hari\r\n90 – 100 poin :  dikembalikan kepada orang tua selamanya ( diberhentikan )');
