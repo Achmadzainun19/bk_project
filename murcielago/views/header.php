@@ -281,6 +281,10 @@ a {
         <li class="<?php echo ($this->uri->segment('2') == 'konseling') ? 'active' : '' ?>"><a href="<?php echo base_url('p/konseling') ?>"><i class="fa fa-database"></i> <span>Konseling Siswa </span></a></li>
         
         <li class="<?php echo ($this->uri->segment('2') == 'surat_bimbingan') ? 'active' : '' ?>"><a href="<?php echo base_url('p/surat_bimbingan') ?>"><i class="fa fa-database"></i> <span>Surat Bimbingan Siswa </span></a></li>
+        
+        <li class="<?php echo ($this->uri->segment('2') == 'bentuk_sanksi_diberikan') ? 'active' : '' ?>"><a href="<?php echo base_url('p/bentuk_sanksi_diberikan') ?>"><i class="fa fa-database"></i> <span>Bentuk Sanksi Diberikan</span></a></li>
+
+        <li class="<?php echo ($this->uri->segment('2') == 'pengelompokan_pelanggar') ? 'active' : '' ?>"><a href="<?php echo base_url('p/pengelompokan_pelanggar') ?>"><i class="fa fa-database"></i> <span>Pengelompokan Pelanggar</span></a></li>
 
 
 

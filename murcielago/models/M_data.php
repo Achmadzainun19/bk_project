@@ -147,6 +147,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		}
 
+		function list_siswa_pelanggar(){
+			$this->db->select("pelanggaran_siswa.id_siswa,kelas.nama_kelas,siswa.nama_siswa, sum(poin) as jumlah_poin");
+			$this->db->join('siswa','siswa.id_siswa=pelanggaran_siswa.id_siswa','left');
+			$this->db->join('kelas','siswa.kelas=kelas.id_kelas','left');
+			$this->db->group_by('pelanggaran_siswa.id_siswa','desc');
+			$query = $this->db->get('pelanggaran_siswa');
+			return $query;
+		}
+
 
 
     }

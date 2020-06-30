@@ -549,6 +549,8 @@ class P extends CI_Controller {
 
 			'poin' => $this->input->post('poin'),
 
+			'jenis_pelanggaran' => $this->input->post('jenis_pelanggaran'),
+
 		);
 
 		$this->db->insert('pelanggaran',$data);
@@ -576,6 +578,8 @@ class P extends CI_Controller {
 			'id_kategori_pelanggaran' => $this->input->post('kategori_pelanggaran'),
 
 			'poin' => $this->input->post('poin'),
+
+			'jenis_pelanggaran' => $this->input->post('jenis_pelanggaran'),
 
 		);
 
@@ -762,6 +766,65 @@ class P extends CI_Controller {
 		$data['siswa'] = $this->m_data->siswa_kelas($id_siswa)->row();
 		$data['title'] = 'Surat Bimbingan Siswa';
 		$this->load->view('cetak_surat',$data);
+	}
+
+	public function bentuk_sanksi_diberikan(){
+		$data['title'] = 'Bentuk Sanksi Diberikan';
+		$data['bentuk_sanksi'] = $this->m_data->semua('bentuk_sanksi')->result();
+		$this->load->view('header',$data);
+		$this->load->view('bentuk_sanksi_diberikan');
+		$this->load->view('footer');
+	}
+
+	public function tambah_bentuk_sanksi(){
+		$data = array(
+			'id_bentuk_sanksi' => '',
+			'bentuk_pelanggaran' => $this->input->post('bentuk_pelanggaran'),
+			'point_terendah' => $this->input->post('point_terendah'),
+			'point_tertinggi' => $this->input->post('point_tertinggi'),
+			'sanksi' => $this->input->post('sanksi'),
+		);
+			$this->db->insert('bentuk_sanksi',$data);
+			$this->session->set_flashdata('alert',' <div class="alert alert-success alert-dismissible">
+	    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    	<strong>Berhasil menambahkan bentuk sanksi!</strong>
+	  		</div>');
+		redirect('p/bentuk_sanksi_diberikan/'.$this->input->post('id_siswa'));
+	}
+
+	public function update_bentuk_sanksi(){
+		$where=array(
+			'id_bentuk_sanksi'=>$this->input->post('id_bentuk_sanksi'),
+		);
+		$data = array(
+			'bentuk_pelanggaran' => $this->input->post('bentuk_pelanggaran'),
+			'point_terendah' => $this->input->post('point_terendah'),
+			'point_tertinggi' => $this->input->post('point_tertinggi'),
+			'sanksi' => $this->input->post('sanksi'),
+		);
+			$this->m_data->update_data($where,$data,'bentuk_sanksi');
+			$this->session->set_flashdata('alert',' <div class="alert alert-success alert-dismissible">
+	    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    	<strong>Berhasil mengedit bentuk sanksi!</strong>
+	  		</div>');
+		redirect('p/bentuk_sanksi_diberikan/'.$this->input->post('id_bentuk_sanksi'));
+	}
+
+	function hapus_bentuk_sanksi($id){
+		$this->m_data->hapus_data(array('id_bentuk_sanksi' => $id),'bentuk_sanksi');
+		$this->session->set_flashdata('alert',' <div class="alert alert-success alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Berhasil hapus bentuk sanksi!</strong>
+			</div>');
+		redirect('p/bentuk_sanksi_diberikan/');
+	}
+
+	public function pengelompokan_pelanggar(){
+		$data['title'] = 'Bentuk Sanksi Diberikan';
+		$data['bentuk_sanksi'] = $this->m_data->semua('bentuk_sanksi')->result();
+		$this->load->view('header',$data);
+		$this->load->view('pengelompokan_pelanggar');
+		$this->load->view('footer');
 	}
 
 }
