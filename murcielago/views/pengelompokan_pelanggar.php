@@ -144,7 +144,7 @@
                         <td><?php echo $lsp->jumlah_poin ?></td>
 
                         <td> 
-                        <a href="<?php echo base_url('p/begin_surat_bimbingan/'.$lsp->id_siswa.'') ?>" class="btn btn-danger btn-xs  btn-flat" name="button">Proses Siswa</a>
+                        <a href="<?php echo base_url('p/begin_detail_siswa/'.$lsp->id_siswa.'') ?>" class="btn btn-danger btn-xs  btn-flat" name="button">Detail Siswa</a>
                         <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalxx<?php echo $l->id_siswa ?>"><?php echo $count_poin->total ?></a> -->
                         <!-- <td> <a href="<?php //echo base_url('p/begin_pelanggaran/'.$l->id_siswa.'') ?>" class="btn btn-danger btn-flat" name="button">Proses</a> -->
                         </td>

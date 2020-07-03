@@ -763,6 +763,23 @@ class P extends CI_Controller {
 	}
 
 	public function cetak_surat($id_siswa){
+		// rekaman tanggapan
+		$tanggapan=$this->uri->segment('4');
+		if($tanggapan=='surat_peringatan'){
+			$tanggapan='peringatan';
+		}elseif($tanggapan=='surat_panggilan_orang_tua'){
+			$tanggapan='panggilan orang tua';
+		}elseif($tanggapan=='surat_skorsing'){
+			$tanggapan='skorsing';
+		}
+		$value=array(
+			'id_tanggapan'=>'',
+			'id_siswa'=>$id_siswa,
+			'tanggal_tanggapan'=>date('Y-m-d H:i:s'),
+			'tanggapan'=>$tanggapan
+		);
+		$insert=$this->db->insert('tanggapan',$value);
+		// rekaman tanggapan
 		$data['siswa'] = $this->m_data->siswa_kelas($id_siswa)->row();
 		$data['title'] = 'Surat Bimbingan Siswa';
 		$this->load->view('cetak_surat',$data);
@@ -824,6 +841,23 @@ class P extends CI_Controller {
 		$data['bentuk_sanksi'] = $this->m_data->semua('bentuk_sanksi')->result();
 		$this->load->view('header',$data);
 		$this->load->view('pengelompokan_pelanggar');
+		$this->load->view('footer');
+	}
+
+	public function begin_detail_siswa($id_siswa){
+		$data['title'] = 'Tambah Surat Bimbingan Siswa';
+		$data['user_ion'] = $this->ion_auth->user()->row();
+		$data['siswa'] = $this->m_data->siswa_kelas($id_siswa)->row();
+		$data['kelas'] = $this->m_data->semua('kelas')->result();
+		$where=array(
+			'id_siswa'=>$id_siswa
+		);
+		$data['tanggapan'] = $this->m_data->where('tanggapan',$where)->result();
+		$data['jum_konseling'] = $this->m_data->where('konseling_siswa',array('data_siswa_id_siswa'=>$id_siswa))->num_rows();
+		$data['pelanggaran'] = $this->m_data->list_pelanggaran_siswa($id_siswa)->result();
+		$data['jum_pelanggaran'] = $this->m_data->list_pelanggaran_siswa($id_siswa)->num_rows();
+		$this->load->view('header',$data);
+		$this->load->view('view_detail_siswa');
 		$this->load->view('footer');
 	}
 
