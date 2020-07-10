@@ -1,3 +1,42 @@
+<?php
+function hari_ini($hari){
+ 
+	switch($hari){
+		case 'Sun':
+			$hari_ini = "Minggu";
+		break;
+ 
+		case 'Mon':			
+			$hari_ini = "Senin";
+		break;
+ 
+		case 'Tue':
+			$hari_ini = "Selasa";
+		break;
+ 
+		case 'Wed':
+			$hari_ini = "Rabu";
+		break;
+ 
+		case 'Thu':
+			$hari_ini = "Kamis";
+		break;
+ 
+		case 'Fri':
+			$hari_ini = "Jumat";
+		break;
+ 
+		case 'Sat':
+			$hari_ini = "Sabtu";
+		break;
+		
+		default:
+			$hari_ini = "Tidak di ketahui";		
+		break;
+	}
+	return "<b>" . $hari_ini . "</b>";
+}
+?>
 <html>
 <head>
 </head>
@@ -75,7 +114,7 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
                         <table>
                             <tr>
                                 <td style="width:10%;">Nomor </td>
-                                <td style="width:90%;">: __ / 151 / 429.245.201010 / 2020</td>
+                                <td style="width:90%;">: <?php echo $tanggapan->nomor_surat; ?> / 151 / 429.245.201010 / <?php echo date('Y')?></td>
                             </tr>
                             <tr>
                                 <td style="width:10%;">Sifat </td>
@@ -114,11 +153,11 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
         <table>
             <tr>
                 <td style="width:40%;">Hari </td>
-                <td style="width:60%;">: </td>
+                <td style="width:60%;">: <?php echo hari_ini(date('D',strtotime($tanggapan->tanggal_panggilan)));?></td>
             </tr>
             <tr>
                 <td style="width:40%;">Tanggal </td>
-                <td style="width:60%;">: </td>
+                <td style="width:60%;">: <?php echo date('d F Y',strtotime($tanggapan->tanggal_panggilan));?></td>
             </tr>
             <tr>
                 <td style="width:40%;">Jam </td>
@@ -130,7 +169,7 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
             </tr>
             <tr>
                 <td style="width:40%;">Menghadap </td>
-                <td style="width:60%;">: Guru BK</td>
+                <td style="width:60%;">:<?php echo $tanggapan->menghadap; ?></td>
             </tr>
             <tr>
                 <td style="width:40%;">Untuk </td>
@@ -238,7 +277,7 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
                         <table>
                             <tr>
                                 <td style="width:10%;">Nomor </td>
-                                <td style="width:90%;">: __ / 151 / 429.245.201010 / 2020</td>
+                                <td style="width:90%;">: <?php echo $tanggapan->nomor_surat; ?> / 151 / 429.245.201010 / <?php echo date('Y')?></td>
                             </tr>
                             <tr>
                                 <td style="width:10%;">Sifat </td>
@@ -387,7 +426,7 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
                     <table>
                         <tr>
                             <td style="width:10%;">Nomor </td>
-                            <td style="width:90%;">: __ / 151 / 429.245.201010 / 2020</td>
+                            <td style="width:90%;">: <?php echo $tanggapan->nomor_surat; ?> / 151 / 429.245.201010 / <?php echo date('Y')?></td>
                         </tr>
                         <tr>
                             <td style="width:10%;">Sifat </td>
@@ -423,7 +462,15 @@ if($this->uri->segment(4)=='surat_panggilan_orang_tua'){
     <br>
     <p>Dengan Hormat,  </p>
     <p>Memberitahukan dengan hormat bahwa putra Bapak / Ibu telah melanggar disipin sekolah.</p>
-    <p>Oleh sebab itu dengan surat ini sekolah menjatuhkan sanksi skors ( tidak boleh masuk sekolah dan belajar sendiri di rumah ) selama ___ hari tehitung mulai ___, ___________ sd ___,____________ dan apabila melakukan pelanggaran di sekolah lagi maka siap menerima konsekuensinya yaitu DIKEMBALIKAN KE PADA ORANG TUA SISWA untuk mencari sekolah lain</p>
+    <?php
+    $tanggal_awal=date('Y-m-d',strtotime($tanggapan->tanggal_awal));
+    $tanggal_akhir=date('Y-m-d',strtotime($tanggapan->tanggal_akhir));
+    $tgl1 = new DateTime($tanggal_awal);
+	$tgl2 = new DateTime($tanggal_akhir);
+	$d = $tgl2->diff($tgl1)->days + 1;
+	$selisih= $d;
+    ?>
+    <p>Oleh sebab itu dengan surat ini sekolah menjatuhkan sanksi skors ( tidak boleh masuk sekolah dan belajar sendiri di rumah ) selama <?php echo $selisih; ?> hari tehitung mulai <?php echo hari_ini(date('D',strtotime($tanggapan->tanggal_awal))); ?>, <?php echo date('d F Y',strtotime($tanggapan->tanggal_awal)); ?> sd <?php echo hari_ini(date('D',strtotime($tanggapan->tanggal_akhir))); ?>,<?php echo date('d F Y',strtotime($tanggapan->tanggal_akhir)); ?> dan apabila melakukan pelanggaran di sekolah lagi maka siap menerima konsekuensinya yaitu DIKEMBALIKAN KE PADA ORANG TUA SISWA untuk mencari sekolah lain</p>
     
     <p>Demikian kiranya mendapat perhatian dan atas kerja samanya, disampaikan terima kasih. </p>
     <!-- body -->

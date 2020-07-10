@@ -65,9 +65,12 @@
             </div>
             </div>
             <div class="box-body">
-                <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_peringatan');?>" target="_blank" class="btn btn-warning btn-block">CETAK SURAT PERINGATAN</a>
-                <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_panggilan_orang_tua');?>" target="_blank" class="btn btn-success btn-block">CETAK SURAT PANGGILAN ORANG TUA</a>
-                <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_skorsing');?>" target="_blank" class="btn btn-danger btn-block">CETAK SURAT SKORSING</a>
+                <!-- <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_peringatan');?>" target="_blank" class="btn btn-warning btn-block">CETAK SURAT PERINGATAN</a> -->
+                <!-- <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_panggilan_orang_tua');?>" target="_blank" class="btn btn-success btn-block">CETAK SURAT PANGGILAN ORANG TUA</a> -->
+                <!-- <a href="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_skorsing');?>" target="_blank" class="btn btn-danger btn-block">CETAK SURAT SKORSING</a> -->
+                <button data-toggle="modal" data-target="#peringatan" class="btn btn-warning btn-block">CETAK SURAT PERINGATAN</button>
+                <button data-toggle="modal" data-target="#panggilan_orang_tua" class="btn btn-success btn-block">CETAK SURAT PANGGILAN ORANG TUA</button>
+                <button data-toggle="modal" data-target="#skorsing" class="btn btn-danger btn-block">CETAK SURAT DISKORSING</button>
             </div>
         </div>
       </div>
@@ -129,13 +132,109 @@
 
   </div>
 
-  <script type="text/javascript">
+<!-- modal surat panggilan orang tua -->
+<div id="panggilan_orang_tua" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Surat Panggilan Orang Tua</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_panggilan_orang_tua') ?>" method="post">
+                    <div class="form-group">
+                        <label for="pwd">Nomor Surat : </label>
+                        <div class="input-group"> 
+                            <input type="text" class="form-control" name="nomor_surat" value="" required="">
+                            <span class="input-group-addon"> / 151 / 429.245.201010 / <?php echo date('Y'); ?></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="">Tanggal Surat Panggilan Orang Tua</label>
+                    <input type="date" name="tanggal_panggilan" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">Menghadap</label>
+                    <input type="text" name="menghadap" class="form-control" value="" placeholder="Menghadap ke Guru BK">
+                    </div>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-flat" name="button">Buat Surat</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal surat peringatan -->
+<div id="peringatan" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Surat Peringatan</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_peringatan') ?>" method="post">
+                    <div class="form-group">
+                        <label for="pwd">Nomor Surat : </label>
+                        <div class="input-group"> 
+                            <input type="text" class="form-control" name="nomor_surat" value="" required="">
+                            <span class="input-group-addon"> / 151 / 429.245.201010 / <?php echo date('Y'); ?></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-flat" name="button">Buat Surat</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal surat skorsing -->
+<div id="skorsing" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Surat Skorsing</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url('p/cetak_surat/'.$this->uri->segment(3).'/surat_skorsing') ?>" method="post">
+                    <div class="form-group">
+                        <label for="pwd">Nomor Surat : </label>
+                        <div class="input-group"> 
+                            <input type="text" class="form-control" name="nomor_surat" value="" required="">
+                            <span class="input-group-addon"> / 151 / 429.245.201010 / <?php echo date('Y'); ?></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="">Tanggal Awal Diskors</label>
+                    <input type="date" name="tanggal_awal_skors" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">Tanggal Akhir Diskors</label>
+                    <input type="date" name="tanggal_akhir_skors" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-flat" name="button">Buat Surat</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-  $("#checkAll").click(function () {
-
-  $(".check").prop('checked', $(this).prop('checked'));
-
-});
-
-  </script>
+</div>
 

@@ -532,7 +532,11 @@ class P extends CI_Controller {
 	// 	<strong>Berhasil menambahkan pelanggaran siswa!</strong>
 
 	// </div>');
-	echo "https://wa.me/628113711998?text=assalamualaikum pesan ini adalah pesan dari sistem point pelanggaran siswa smpn 4 banyuwangi memberitahukan bahwa ananda $nama_siswa kelas $kelas  telah melakukan pelanggaran sekolah $sentence dengan jumlah poin $poin_all segera tanggapi pesan berikut untuk cek kebenaran";
+	
+	$link=base_url('http://localhost/ap/p/kusioner_orang_tua/'.$id_siswa.'/'.$id_tanggapan);
+	echo "https://wa.me/628113711998?text=assalamualaikum pesan ini adalah pesan dari sistem point pelanggaran siswa smpn 4 banyuwangi memberitahukan bahwa ananda $nama_siswa kelas $kelas  telah melakukan pelanggaran sekolah $sentence dengan jumlah poin $poin_all segera tanggapi pesan berikut untuk cek kebenaran
+	atau klik berikut ini untuk menanggapi pesan ini :".$link."
+	";
 		// redirect('p/tambah_pelanggaran');
 
 	} 
@@ -766,20 +770,51 @@ class P extends CI_Controller {
 		// rekaman tanggapan
 		$tanggapan=$this->uri->segment('4');
 		if($tanggapan=='surat_peringatan'){
-			$tanggapan='peringatan';
+			$value=array(
+				'id_tanggapan'=>'',
+				'id_siswa'=>$id_siswa,
+				'tanggal_tanggapan'=>date('Y-m-d H:i:s'),
+				'tanggapan'=>'peringatan',
+				'nomor_surat'=>$this->input->post('nomor_surat'),
+				'tanggal_panggilan'=>'',
+				'menghadap'=>'',
+				'tanggal_awal'=>'',
+				'tanggal_akhir'=>'',
+			);
 		}elseif($tanggapan=='surat_panggilan_orang_tua'){
-			$tanggapan='panggilan orang tua';
+			$value=array(
+				'id_tanggapan'=>'',
+				'id_siswa'=>$id_siswa,
+				'tanggal_tanggapan'=>date('Y-m-d H:i:s'),
+				'tanggapan'=>'panggilan orang tua',
+				'nomor_surat'=>$this->input->post('nomor_surat'),
+				'tanggal_panggilan'=>$this->input->post('tanggal_panggilan'),
+				'menghadap'=>$this->input->post('menghadap'),
+				'tanggal_awal'=>'',
+				'tanggal_akhir'=>'',
+			);
 		}elseif($tanggapan=='surat_skorsing'){
-			$tanggapan='skorsing';
+			$value=array(
+				'id_tanggapan'=>'',
+				'id_siswa'=>$id_siswa,
+				'tanggal_tanggapan'=>date('Y-m-d H:i:s'),
+				'tanggapan'=>'skorsing',
+				'nomor_surat'=>$this->input->post('nomor_surat'),
+				'tanggal_panggilan'=>'',
+				'menghadap'=>'',
+				'tanggal_awal'=>$this->input->post('tanggal_awal_skors'),
+				'tanggal_akhir'=>$this->input->post('tanggal_akhir_skors'),
+			);
 		}
-		$value=array(
-			'id_tanggapan'=>'',
-			'id_siswa'=>$id_siswa,
-			'tanggal_tanggapan'=>date('Y-m-d H:i:s'),
-			'tanggapan'=>$tanggapan
-		);
+
 		$insert=$this->db->insert('tanggapan',$value);
 		// rekaman tanggapan
+		$tanggal_awal=date('Y-m-d 00:00:00');
+		$tanggal_akhir=date('Y-m-d 23:59:59');
+		$where="id_siswa='$id_siswa' and tanggal_tanggapan>='$tanggal_awal' and tanggal_tanggapan<='$tanggal_akhir' ";
+		
+		$data['tanggapan']=$this->m_data->where("tanggapan",$where)->row();
+		// echo $tanggapan->tanggal_tanggapan; 
 		$data['siswa'] = $this->m_data->siswa_kelas($id_siswa)->row();
 		$data['title'] = 'Surat Bimbingan Siswa';
 		$this->load->view('cetak_surat',$data);
@@ -859,6 +894,20 @@ class P extends CI_Controller {
 		$this->load->view('header',$data);
 		$this->load->view('view_detail_siswa');
 		$this->load->view('footer');
+	}
+
+	public function kusioner_orang_tua(){
+		$id_siswa=$this->uri->segment('3');
+		$id_tanggapan=$this->uri->segment('4');
+		$data['siswa'] = $this->m_data->siswa_kelas($id_siswa)->row();
+		$data['kelas'] = $this->m_data->semua('kelas')->result();
+		$where=array(
+			'id_tanggapan'=>$id_tanggapan
+		);
+		$data['tanggapan'] = $this->m_data->where('tanggapan',$where)->row();
+		$data['pelanggaran'] = $this->m_data->list_pelanggaran_siswa($id_siswa)->result();
+		$data['jum_pelanggaran'] = $this->m_data->list_pelanggaran_siswa($id_siswa)->num_rows();
+		$this->load->view('kusioner_orang_tua',$data);
 	}
 
 }

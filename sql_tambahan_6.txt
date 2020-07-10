@@ -2,12 +2,10 @@ CREATE TABLE `tanggapan` (
   `id_tanggapan` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `tanggal_tanggapan` datetime NOT NULL,
-  `tanggapan` varchar(45) NOT NULL
+  `tanggapan` varchar(45) NOT NULL,
+  `nomor_surat` int(111) NOT NULL,
+  `tanggal_panggilan` date NOT NULL,
+  `menghadap` varchar(111) NOT NULL,
+  `tanggal_awal` date NOT NULL,
+  `tanggal_akhir` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tanggapan`
---
-
-INSERT INTO `tanggapan` (`id_tanggapan`, `id_siswa`, `tanggal_tanggapan`, `tanggapan`) VALUES
-(1, 1, '2020-07-04 06:40:55', 'peringatan');
